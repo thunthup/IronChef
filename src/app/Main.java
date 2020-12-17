@@ -1,9 +1,17 @@
 package app;
 
-import org.graalvm.compiler.nodes.InliningLog.UpdateScope;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Scanner;
 
 import gui.GameButton;
+import gui.IngredientButton;
 import gui.ToggleButton;
+import gui.Trash;
+import javafx.animation.Animation;
 import javafx.animation.AnimationTimer;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
@@ -12,7 +20,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.paint.Color;
@@ -26,24 +33,45 @@ public class Main extends Application {
 	final static int WIDGTH = 1000;
 
 	private void gameScreenStart(Stage stage) {
+
 		Pane root = new Pane();
 		root.setPrefSize(WIDGTH, HEIGHT);
 		root.setMinSize(WIDGTH, HEIGHT);
+
 		Scene gamescene = new Scene(root);
-		ImageView gameScreenBackground = new ImageView(
-				new Image(ClassLoader.getSystemResource("GameScreenBG.png").toString()));
-		root.getChildren().add(gameScreenBackground);
+		ImageView gameScreenBackgroundleft = new ImageView(
+				new Image(ClassLoader.getSystemResource("gameScreenbgleft.png").toString()));
+		ImageView gameScreenBackgroundright= new ImageView(
+				new Image(ClassLoader.getSystemResource("gameScreenbgright.png").toString()));
+		gameScreenBackgroundleft.setX(0);
+		gameScreenBackgroundleft.setY(0);
+		gameScreenBackgroundright.setX(350);
+		gameScreenBackgroundright.setY(0);
+		root.getChildren().addAll(gameScreenBackgroundleft,gameScreenBackgroundright);
+		IngredientButton eggButton = new IngredientButton(0, root);
+		root.getChildren().add(GameControl.trash);
 		stage.setScene(gamescene);
 		stage.show();
 		
-//		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(20),e->{
-//			updateIngredients();
-//		}));
+		
+
+		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(20), e -> {
+			GameControl.updateIngredients(root);
+			
+			
+			
+			
+			
+			
+			
+		}));
+		timeline.setCycleCount(Animation.INDEFINITE);
+		timeline.play();
 	}
 
 	private void menuStart(Stage stage) {
-		
-		AnchorPane root = new AnchorPane();
+
+		Pane root = new Pane();
 		root.setPrefSize(1000, 700);
 		root.setMinSize(1000, 700);
 
@@ -51,8 +79,7 @@ public class Main extends Application {
 		ImageView bgi = new ImageView(bg);
 		root.getChildren().add(bgi);
 		Scene menuScene = new Scene(root, 1000, 700);
-	
-		
+
 		GameButton play = new GameButton("playbutton.png", "playbuttonhighlight.png", root, 362, 400);
 		play.setOnMouseClicked(e -> gameScreenStart(stage));
 
@@ -76,7 +103,7 @@ public class Main extends Application {
 			}
 			bgMusicButton.update();
 		});
-		
+
 		stage.setScene(menuScene);
 		stage.show();
 	}
@@ -85,7 +112,7 @@ public class Main extends Application {
 		// TODO Auto-generated method stub
 		stage.setTitle("IRON CHEF");
 		stage.setResizable(false);
-		
+
 		menuStart(stage);
 
 	}

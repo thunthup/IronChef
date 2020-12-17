@@ -12,8 +12,7 @@ public class ToggleButton extends ImageView {
 	private String offURL;
 	private String offhighlightURL;
 	private Pane root;
-	private double x;
-	private double y;
+
 
 	public ToggleButton(String onURL, String onhighlightURL, String offURL, String offhighlightURL, Pane root, double x, double y) {
 		super();
@@ -23,8 +22,7 @@ public class ToggleButton extends ImageView {
 		this.offURL = offURL;
 		this.offhighlightURL = offhighlightURL;
 		this.root = root;
-		this.x = x;
-		this.y = y;
+	
 
 		this.setImage(new Image(ClassLoader.getSystemResource(onURL).toString()));
 		this.setOnMouseEntered(e -> {
