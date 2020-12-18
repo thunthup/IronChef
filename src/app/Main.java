@@ -76,7 +76,7 @@ public class Main extends Application {
 		bgm.setVolume(0.03D);
 		bgm.play();
 	
-
+		
 		ToggleButton bgMusicButton = new ToggleButton("bgMusicButton.png", "bgMusicButtonhighlight.png",
 				"bgMusicOffButton.png", "bgMusicOffButtonhighlight.png", root, 866, 578);
 

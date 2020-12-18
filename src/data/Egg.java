@@ -1,4 +1,4 @@
-package logic;
+package data;
 
 import app.GameControl;
 import javafx.scene.image.Image;
@@ -9,24 +9,20 @@ public class Egg extends Ingredient implements Fryable {
 
 	private Image friedImg;
 	private boolean isFried;
-	private int timeToFried;
+	private int timeToFry;
 	private int fryCounter;
 
 	public Egg(Pane root) {
 		super();
+		this.setIngredientName("Egg");
 		this.setImage(new Image(ClassLoader.getSystemResource("Ingredients/Egg.png").toString()));
 		this.friedImg = new Image(ClassLoader.getSystemResource("Ingredients/FriedEgg.png").toString());
 		this.isFried = false;
-		this.timeToFried = 100;
+		this.timeToFry = 100;
 		this.fryCounter = 0;
-		this.setIngredientName("Egg");
 		this.setDragged(false);
-		this.setX(Math.random() * 416 + 377);
-		this.setY(Math.random() * 200 + 220);
-		;
 		root.getChildren().add(this);
 		GameControl.IngredientsOnTable.add(this);
-	
 
 	}
 
@@ -47,11 +43,11 @@ public class Egg extends Ingredient implements Fryable {
 	}
 
 	public int getTimeToFried() {
-		return timeToFried;
+		return timeToFry;
 	}
 
 	public void setTimeToFried(int timeToFried) {
-		this.timeToFried = timeToFried;
+		this.timeToFry = timeToFried;
 	}
 
 	public int getFryCounter() {
@@ -80,7 +76,7 @@ public class Egg extends Ingredient implements Fryable {
 	}
 
 	@Override
-	public void cut() {
+	public void chop() {
 
 	}
 

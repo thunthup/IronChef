@@ -7,17 +7,16 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-
+import data.Ingredient;
 import gui.Utensil;
 import javafx.animation.Animation;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
-import logic.Ingredient;
 import myException.NotCookableException;
 import myInterface.Fryable;
 
@@ -31,18 +30,24 @@ public class GameControl {
 	public static Utensil trash = new Utensil("Trash");
 	public static Utensil pan = new Utensil("Pan");
 	public static MediaPlayer frySound = new MediaPlayer(new Media(ClassLoader.getSystemResource("sound/Frying.mp3").toString()));
-
+	public static AudioClip trashSound = new AudioClip(ClassLoader.getSystemResource("sound/sweep.wav").toString());
+	
 	public static void updateIngredients(Pane root) {
 		for (Ingredient ingredient : IngredientsOnTable) {
 			if(!ingredient.isDragged()){
 				if (trash.getBoundsInParent().contains(ingredient.getBoundsInParent())) {
+					
+				
+					trashSound.play();
 					Platform.runLater(new Runnable() {
 						
 						@Override
 						public void run() {
 							IngredientsOnTable.remove(ingredient);
+							
 						}
 					});
+					
 					root.getChildren().remove(ingredient);
 					
 				}

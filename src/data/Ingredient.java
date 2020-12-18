@@ -1,4 +1,4 @@
-package logic;
+package data;
 
 import javafx.scene.image.ImageView;
 import myException.NotCookableException;
@@ -11,6 +11,8 @@ public abstract class Ingredient extends ImageView  {
 	public Ingredient() {
 		this.ingredientName = "";
 		this.setDragged(false);
+		this.setX(Math.random() * 416 + 377);
+		this.setY(Math.random() * 200 + 220);
 		this.setOnMouseDragged(e-> {
 			this.setX(e.getX()-this.getBoundsInLocal().getWidth()/2);
 			this.setY(e.getY()-this.getBoundsInLocal().getHeight()/2);
@@ -26,7 +28,7 @@ public abstract class Ingredient extends ImageView  {
 	
 	public abstract void boil();
 	
-	public abstract void cut();
+	public abstract void chop();
 	
 	
 

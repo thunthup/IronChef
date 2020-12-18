@@ -1,10 +1,10 @@
 package gui;
 
 import app.GameControl;
+import data.Egg;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
-import logic.Egg;
 
 public class IngredientButton extends ImageView {
 
