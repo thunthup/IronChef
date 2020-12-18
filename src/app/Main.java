@@ -1,29 +1,21 @@
 package app;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.Scanner;
-
 import gui.GameButton;
 import gui.IngredientButton;
 import gui.ToggleButton;
-import gui.Trash;
 import javafx.animation.Animation;
-import javafx.animation.AnimationTimer;
+
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.ProgressBar;
+
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -41,28 +33,21 @@ public class Main extends Application {
 		Scene gamescene = new Scene(root);
 		ImageView gameScreenBackgroundleft = new ImageView(
 				new Image(ClassLoader.getSystemResource("gameScreenbgleft.png").toString()));
-		ImageView gameScreenBackgroundright= new ImageView(
+		ImageView gameScreenBackgroundright = new ImageView(
 				new Image(ClassLoader.getSystemResource("gameScreenbgright.png").toString()));
 		gameScreenBackgroundleft.setX(0);
 		gameScreenBackgroundleft.setY(0);
 		gameScreenBackgroundright.setX(350);
 		gameScreenBackgroundright.setY(0);
-		root.getChildren().addAll(gameScreenBackgroundleft,gameScreenBackgroundright);
-		IngredientButton eggButton = new IngredientButton(0, root);
+		root.getChildren().addAll(gameScreenBackgroundleft, gameScreenBackgroundright);
+		IngredientButton eggButton = new IngredientButton("Egg", root);
 		root.getChildren().add(GameControl.trash);
+		root.getChildren().add(GameControl.pan);
 		stage.setScene(gamescene);
 		stage.show();
-		
-		
 
 		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(20), e -> {
 			GameControl.updateIngredients(root);
-			
-			
-			
-			
-			
-			
 			
 		}));
 		timeline.setCycleCount(Animation.INDEFINITE);
@@ -85,11 +70,12 @@ public class Main extends Application {
 
 		GameButton exit = new GameButton("exitButton.png", "exitButtonhighlight.png", root, 362, 520);
 		exit.setOnMouseClicked(e -> stage.close());
-
+		MediaPlayer bgm = new MediaPlayer(new Media(ClassLoader.getSystemResource("sound/bgMusic.mp3").toString()));
 		AudioClip bgMusic = new AudioClip(ClassLoader.getSystemResource("sound/bgMusic.mp3").toString());
-		bgMusic.setCycleCount(AudioClip.INDEFINITE);
-		bgMusic.setVolume(0.035D);
-		bgMusic.play();
+		bgm.setCycleCount(AudioClip.INDEFINITE);
+		bgm.setVolume(0.03D);
+		bgm.play();
+	
 
 		ToggleButton bgMusicButton = new ToggleButton("bgMusicButton.png", "bgMusicButtonhighlight.png",
 				"bgMusicOffButton.png", "bgMusicOffButtonhighlight.png", root, 866, 578);
@@ -97,9 +83,9 @@ public class Main extends Application {
 		bgMusicButton.setOnMouseClicked(e -> {
 			bgMusicButton.setToggleState((!bgMusicButton.getToggleState()));
 			if (bgMusicButton.getToggleState()) {
-				bgMusic.play();
+				bgm.play();
 			} else {
-				bgMusic.stop();
+				bgm.pause();
 			}
 			bgMusicButton.update();
 		});

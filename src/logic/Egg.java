@@ -1,8 +1,8 @@
 package logic;
 
+import app.GameControl;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import myException.NotCookableException;
 import myInterface.Fryable;
 
 public class Egg extends Ingredient implements Fryable {
@@ -21,12 +21,14 @@ public class Egg extends Ingredient implements Fryable {
 		this.fryCounter = 0;
 		this.setIngredientName("Egg");
 		this.setDragged(false);
-		this.setX(Math.random()*416+387);
-		this.setY(Math.random()*216+326);;
+		this.setX(Math.random() * 416 + 377);
+		this.setY(Math.random() * 200 + 220);
+		;
 		root.getChildren().add(this);
+		GameControl.IngredientsOnTable.add(this);
+	
 
 	}
-	
 
 	public Image getFriedImg() {
 		return friedImg;
@@ -60,30 +62,26 @@ public class Egg extends Ingredient implements Fryable {
 		this.fryCounter = fryCounter;
 	}
 
-
 	@Override
-	public void fry() throws NotCookableException {
-		if(!isFried() && getFryCounter() >= getTimeToFried()) {
+	public void fry() {
+		if (!isFried() && getFryCounter() >= getTimeToFried()) {
 			this.setImage(friedImg);
 			setFried(true);
-		}else if(!isFried()) {
-			setFryCounter(getFryCounter()+1);
+			this.setIngredientName("FriedEgg");
+		} else if (!isFried()) {
+			setFryCounter(getFryCounter() + 1);
 		}
-		
-	}
 
+	}
 
 	@Override
-	public void boil() throws NotCookableException {
-		throw new NotCookableException();
-	}
+	public void boil() {
 
+	}
 
 	@Override
-	public void cut() throws NotCookableException {
-		throw new NotCookableException();
-		
-	}
+	public void cut() {
 
+	}
 
 }

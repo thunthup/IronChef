@@ -16,17 +16,17 @@ public abstract class Ingredient extends ImageView  {
 			this.setY(e.getY()-this.getBoundsInLocal().getHeight()/2);
 			this.setDragged(true);
 		});
-		this.setOnMouseDragReleased(e->{
+		this.setOnMouseReleased(e->{
 			this.setDragged(false);
 		});
 		
 	}
 
-	public abstract void fry() throws NotCookableException;
+	public abstract void fry();
 	
-	public abstract void boil() throws NotCookableException;
+	public abstract void boil();
 	
-	public abstract void cut() throws NotCookableException;
+	public abstract void cut();
 	
 	
 
