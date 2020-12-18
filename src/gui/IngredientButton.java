@@ -17,7 +17,7 @@ public class IngredientButton extends ImageView {
 			this.setY(211);
 
 			this.setOnMouseClicked(e -> {
-				if (GameControl.IngredientsOnTable.size()<= 6) {
+				if (GameControl.IngredientsOnTable.size() <= 6) {
 					new Egg(root);
 				}
 			});
@@ -26,6 +26,8 @@ public class IngredientButton extends ImageView {
 		}
 		case "Broccoli": {
 			this.setImage(new Image(ClassLoader.getSystemResource("IngredientButton/ButtonBase.png").toString()));
+			this.setX(0);
+			this.setY(0);
 			this.setOnMouseClicked(e -> {
 				new Egg(root);
 			});
