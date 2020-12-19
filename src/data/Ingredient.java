@@ -11,7 +11,7 @@ public abstract class Ingredient extends ImageView  {
 	public Ingredient() {
 		this.ingredientName = "";
 		this.setDragged(false);
-		this.setX(Math.random() * 416 + 377);
+		this.setX(Math.random() * 416 + 345);
 		this.setY(Math.random() * 200 + 220);
 		this.setOnMouseDragged(e-> {
 			this.setX(e.getX()-this.getBoundsInLocal().getWidth()/2);
@@ -36,8 +36,9 @@ public abstract class Ingredient extends ImageView  {
 		return ingredientName;
 	}
 
-	public void setIngredientName(String ingredientName) {
+	public Ingredient setIngredientName(String ingredientName) {
 		this.ingredientName = ingredientName;
+		return this;
 	}
 
 	public boolean isDragged() {
@@ -47,4 +48,7 @@ public abstract class Ingredient extends ImageView  {
 	public void setDragged(boolean isDragged) {
 		this.isDragged = isDragged;
 	}
+
+
+
 }

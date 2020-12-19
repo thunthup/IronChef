@@ -5,18 +5,17 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import myInterface.Fryable;
 
-public class Egg extends Ingredient implements Fryable {
-
+public class Bread extends Ingredient implements Fryable {
 	private Image friedImg;
 	private boolean isFried;
 	private int timeToFry;
 	private int fryCounter;
 
-	public Egg(Pane root) {
+	public Bread(Pane root) {
 		super();
-		this.setIngredientName("Egg");
-		this.setImage(new Image(ClassLoader.getSystemResource("Ingredients/Egg.png").toString()));
-		this.friedImg = new Image(ClassLoader.getSystemResource("Ingredients/FriedEgg.png").toString());
+		this.setIngredientName("Bread");
+		this.setImage(new Image(ClassLoader.getSystemResource("Ingredients/Bread.png").toString()));
+		this.friedImg = new Image(ClassLoader.getSystemResource("Ingredients/FriedBread.png").toString());
 		this.isFried = false;
 		this.timeToFry = 14;
 		this.fryCounter = 0;
@@ -25,33 +24,11 @@ public class Egg extends Ingredient implements Fryable {
 
 	}
 
-	public Egg fried() {
+	public Bread fried() {
 		this.setImage(getFriedImg());
 		this.setFried(true);
-		this.setIngredientName("FriedEgg");
+		this.setIngredientName("FriedBread");
 		return this;
-	}
-
-	@Override
-	public void fry() {
-		if (!isFried() && getFryCounter() >= getTimeToFry()) {
-			this.setImage(friedImg);
-			setFried(true);
-			this.setIngredientName("FriedEgg");
-		} else if (!isFried()) {
-			setFryCounter(getFryCounter() + 1);
-		}
-
-	}
-
-	@Override
-	public void boil() {
-
-	}
-
-	@Override
-	public void chop() {
-
 	}
 
 	public Image getFriedImg() {
@@ -74,8 +51,8 @@ public class Egg extends Ingredient implements Fryable {
 		return timeToFry;
 	}
 
-	public void setTimeToFried(int timeToFried) {
-		this.timeToFry = timeToFried;
+	public void setTimeToFry(int timeToFry) {
+		this.timeToFry = timeToFry;
 	}
 
 	public int getFryCounter() {
@@ -84,6 +61,30 @@ public class Egg extends Ingredient implements Fryable {
 
 	public void setFryCounter(int fryCounter) {
 		this.fryCounter = fryCounter;
+	}
+
+	@Override
+	public void fry() {
+		if (!isFried() && getFryCounter() >= getTimeToFry()) {
+			this.setImage(friedImg);
+			setFried(true);
+			this.setIngredientName("FriedBread");
+		} else if (!isFried()) {
+			setFryCounter(getFryCounter() + 1);
+		}
+
+	}
+
+	@Override
+	public void boil() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void chop() {
+		// TODO Auto-generated method stub
+
 	}
 
 }

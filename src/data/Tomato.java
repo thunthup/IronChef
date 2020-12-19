@@ -6,8 +6,7 @@ import javafx.scene.layout.Pane;
 import myInterface.Boilable;
 import myInterface.Chopable;
 
-public class Fish extends Ingredient implements Boilable, Chopable {
-
+public class Tomato extends Ingredient  implements Boilable, Chopable {
 	private Image boiledImg;
 	private Image choppedImg;
 	private boolean isBoiled;
@@ -17,39 +16,45 @@ public class Fish extends Ingredient implements Boilable, Chopable {
 	private int boilCounter;
 	private int chopCounter;
 
-	public Fish(Pane root) {
+	public Tomato(Pane root) {
 		super();
-		this.setImage(new Image(ClassLoader.getSystemResource("Ingredients/Fish.png").toString()));
-		this.boiledImg = new Image(ClassLoader.getSystemResource("Ingredients/BoiledFish.png").toString());
-		this.choppedImg = new Image(ClassLoader.getSystemResource("Ingredients/ChoppedFish.png").toString());
+		this.setImage(new Image(ClassLoader.getSystemResource("Ingredients/Tomato.png").toString()));
+		this.boiledImg = new Image(ClassLoader.getSystemResource("Ingredients/BoiledTomato.png").toString());
+		this.choppedImg = new Image(ClassLoader.getSystemResource("Ingredients/ChoppedTomato.png").toString());
 		this.isBoiled = false;
 		this.isChopped = false;
 		this.timeToBoil = 14;
 		this.timeToChop = 14;
 		this.boilCounter = 0;
 		this.chopCounter = 0;
-		this.setIngredientName("Fish");
+		this.setIngredientName("Tomato");
 		this.setDragged(false);
 		root.getChildren().add(this);
+		
 
 	}
-
-	public Fish boiled() {
+	public Tomato boiled() {
 		this.setImage(getBoiledImg());
 		this.setBoiled(true);
-		this.setIngredientName("BoiledFish");
+		this.setIngredientName("BoiledTomato");
 		return this;
 	}
 
-	public Fish chopped() {
+	public Tomato chopped() {
 		this.setImage(getChoppedImg());
 		this.setBoiled(true);
-		this.setIngredientName("ChoppedFish");
+		this.setIngredientName("ChoppedTomato");
 		return this;
 	}
-
+	
 	@Override
-	public void fry() {
+	public void chop() {
+		if (!isChopped() && !isBoiled() && getChopCounter() >= getTimeToChop()) {
+			this.setImage(choppedImg);
+			setChopped(true);
+			this.setIngredientName("ChoppedTomato");
+		} else
+			setChopCounter(getChopCounter() + 1);
 
 	}
 
@@ -59,21 +64,15 @@ public class Fish extends Ingredient implements Boilable, Chopable {
 		if (!isBoiled() && !isChopped() && getBoilCounter() >= getTimeToBoil()) {
 			this.setImage(boiledImg);
 			setBoiled(true);
-			this.setIngredientName("BoiledFish");
+			this.setIngredientName("BoiledTomato");
 		} else
 			setBoilCounter(getBoilCounter() + 1);
 
 	}
-
 	@Override
-	public void chop() {
-		if (!isChopped() && !isBoiled() && getChopCounter() >= getTimeToChop()) {
-			this.setImage(choppedImg);
-			setChopped(true);
-			this.setIngredientName("ChoppedFish");
-		} else
-			setChopCounter(getChopCounter() + 1);
-
+	public void fry() {
+		// TODO Auto-generated method stub
+		
 	}
 
 	public Image getBoiledImg() {
