@@ -7,23 +7,15 @@ import javafx.scene.media.AudioClip;
 
 public class ToggleButton extends ImageView {
 	private boolean toggleState;
-	private String onURL;
 	private String onhighlightURL;
-	private String offURL;
 	private String offhighlightURL;
-	private Pane root;
 
-
-	public ToggleButton(String onURL, String onhighlightURL, String offURL, String offhighlightURL, Pane root, double x, double y) {
+	public ToggleButton(String onURL, String onhighlightURL, String offURL, String offhighlightURL, Pane root, double x,
+			double y) {
 		super();
 		this.toggleState = true;
-		this.onURL = onURL;
 		this.onhighlightURL = onhighlightURL;
-		this.offURL = offURL;
 		this.offhighlightURL = offhighlightURL;
-		this.root = root;
-	
-
 		this.setImage(new Image(ClassLoader.getSystemResource(onURL).toString()));
 		this.setOnMouseEntered(e -> {
 			if (toggleState) {
@@ -55,8 +47,6 @@ public class ToggleButton extends ImageView {
 		new AudioClip(ClassLoader.getSystemResource("sound/uisound.wav").toString()).play();
 
 	}
-
-	
 
 	public boolean getToggleState() {
 		return toggleState;

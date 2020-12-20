@@ -1,7 +1,7 @@
 package data;
 
 import javafx.scene.image.ImageView;
-import myException.NotCookableException;
+
 
 public abstract class Ingredient extends ImageView  {
 	

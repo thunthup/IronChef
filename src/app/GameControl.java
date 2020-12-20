@@ -1,12 +1,7 @@
 package app;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Scanner;
+
 import java.util.stream.Collectors;
 
 import data.Ingredient;
@@ -16,12 +11,12 @@ import gui.Utensil;
 import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
+
 import javafx.scene.layout.Pane;
 import javafx.scene.media.AudioClip;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
+
 import myException.NotCookableException;
 import myInterface.Boilable;
 import myInterface.Chopable;
@@ -36,11 +31,11 @@ public class GameControl {
 	public static ArrayList<Ingredient> ingredientsOnPan = new ArrayList<Ingredient>();
 	public static ArrayList<Ingredient> ingredientsOnPot = new ArrayList<Ingredient>();
 	public static ArrayList<Ingredient> ingredientsOnCuttingBoard = new ArrayList<Ingredient>();
-	public static Menu currentMenu = new Menu();
-	public static QuestBar questBar = new QuestBar(currentMenu);
+	public static Menu currentMenu;
+	public static QuestBar questBar;
 
 	public static int score;
-	public static double timeLeft = 5D;
+	public static double timeLeft;
 	public static Utensil trash = new Utensil("Trash");
 	public static Utensil pan = new Utensil("Pan");
 	public static Utensil pot = new Utensil("Pot");
@@ -214,10 +209,10 @@ public class GameControl {
 					ingredientsOnServeName.clear();
 					GameControl.questBar = new QuestBar(nextMenu);
 					GameControl.currentMenu = nextMenu;
-					try{
+					try {
 						root.getChildren().add(questBar);
-					}catch(Exception e) {
-						
+					} catch (Exception e) {
+
 					}
 
 				}

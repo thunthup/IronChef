@@ -1,6 +1,6 @@
 package app;
 
-import java.util.ArrayList;
+
 
 import data.Ingredient;
 import data.Menu;
@@ -70,7 +70,7 @@ public class Main extends Application {
 	}
 
 	private void gameScreenStart(Stage stage) {
-		GameControl.timeLeft = 7;
+		GameControl.timeLeft = 120;
 		GameControl.score = 0;
 		Pane root = new Pane();
 		root.setPrefSize(WIDGTH, HEIGHT);
@@ -217,8 +217,8 @@ public class Main extends Application {
 		GameButton exit = new GameButton("exitButton.png", "exitButtonhighlight.png", root, 362, 540);
 		exit.setOnMouseClicked(e -> stage.close());
 		MediaPlayer bgm = new MediaPlayer(new Media(ClassLoader.getSystemResource("sound/bgMusic.mp3").toString()));
-		AudioClip bgMusic = new AudioClip(ClassLoader.getSystemResource("sound/bgMusic.mp3").toString());
-		bgm.setCycleCount(AudioClip.INDEFINITE);
+		
+		bgm.setCycleCount(MediaPlayer.INDEFINITE);
 		bgm.setVolume(0.05D);
 		bgm.play();
 

@@ -1,6 +1,6 @@
 package data;
 
-import app.GameControl;
+
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 

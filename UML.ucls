@@ -255,19 +255,15 @@
     <end type="SOURCE" refId="10"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
-  <realization id="37">    
-    <end type="SOURCE" refId="4"/>    
-    <end type="TARGET" refId="20"/>  
-  </realization>  
-  <generalization id="38">    
+  <generalization id="37">    
     <end type="SOURCE" refId="7"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
-  <generalization id="39">    
+  <generalization id="38">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
-  <generalization id="40">    
+  <generalization id="39">    
     <end type="SOURCE" refId="3"/>    
     <end type="TARGET" refId="1"/>  
   </generalization>  
