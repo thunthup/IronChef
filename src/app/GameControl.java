@@ -91,7 +91,7 @@ public class GameControl {
 				if (trash.getBoundsInParent().contains(ingredient.getBoundsInParent())) {
 
 					trashSound.play();
-					GameControl.score -= 50;
+					GameControl.score -= 500;
 					root.getChildren().remove(ingredient);
 
 				}
@@ -214,7 +214,11 @@ public class GameControl {
 					ingredientsOnServeName.clear();
 					GameControl.questBar = new QuestBar(nextMenu);
 					GameControl.currentMenu = nextMenu;
-					root.getChildren().add(questBar);
+					try{
+						root.getChildren().add(questBar);
+					}catch(Exception e) {
+						
+					}
 
 				}
 

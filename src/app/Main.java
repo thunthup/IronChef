@@ -1,5 +1,7 @@
 package app;
 
+import java.util.ArrayList;
+
 import data.Ingredient;
 import data.Menu;
 import gui.GameButton;
@@ -33,7 +35,7 @@ public class Main extends Application {
 		GameControl.boilSound.stop();
 		GameControl.chopSound.stop();
 		GameControl.frySound.stop();
-		GameControl.timeLeft = 180;
+		GameControl.timeLeft = 120;
 
 		Pane root = new Pane();
 		root.setPrefSize(WIDGTH, HEIGHT);
@@ -46,12 +48,20 @@ public class Main extends Application {
 		scoreLabel.setTranslateX(70);
 		scoreLabel.setTranslateY(629);
 		root.getChildren().add(scoreLabel);
-
-		GameButton playAgainButton = new GameButton("playbutton.png", "playbuttonhighlight.png", root, 362, 400);
+		ImageView gameOver = new ImageView(new Image(ClassLoader.getSystemResource("gameover.png").toString()));
+		gameOver.setX(278);
+		gameOver.setY(64);
+		
+		root.getChildren().add(gameOver);
+		GameButton playAgainButton = new GameButton("PlayAgain.png", "PlayAgainhighlight.png", root, 322, 380);
 		playAgainButton.setOnMouseClicked(e -> gameScreenStart(stage));
-		GameButton backToMenuButon = new GameButton("exitButton.png", "exitButtonhighlight.png", root, 362, 520);
+		GameButton backToMenuButon = new GameButton("BacktoMenuButton.png", "BackToMenuButtonhighlight.png", root, 459, 380);
 		backToMenuButon.setOnMouseClicked(e -> {
 			menuStart(stage);
+		});
+		GameButton exit = new GameButton("CircleExit.png", "CircleExithighlight.png", root, 596, 380);
+		exit.setOnMouseClicked(e -> {
+			stage.close();
 		});
 
 		stage.setScene(scoreScene);
@@ -60,7 +70,7 @@ public class Main extends Application {
 	}
 
 	private void gameScreenStart(Stage stage) {
-		GameControl.timeLeft = 120;
+		GameControl.timeLeft = 7;
 		GameControl.score = 0;
 		Pane root = new Pane();
 		root.setPrefSize(WIDGTH, HEIGHT);
@@ -91,7 +101,7 @@ public class Main extends Application {
 		scoreLabel.setFont(font);
 		scoreLabel.setTranslateX(70);
 		scoreLabel.setTranslateY(629);
-		Label timeLabel = new Label("Time: " + GameControl.timeLeft);
+		Label timeLabel = new Label("Time: " + (int)GameControl.timeLeft);
 
 		timeLabel.setFont(font);
 		timeLabel.setTranslateX(60);
@@ -120,6 +130,70 @@ public class Main extends Application {
 		GameControl.timeline.play();
 
 	}
+	
+	private void howToPlay(Stage stage) {
+		
+		Pane root = new Pane();
+		root.setPrefSize(WIDGTH, HEIGHT);
+		Image bg = new Image(ClassLoader.getSystemResource("menubg.png").toString());
+		ImageView bgi = new ImageView(bg);
+		
+		ImageView howToPlay1 = new ImageView(new Image(ClassLoader.getSystemResource("HowToPlay1.png").toString()));
+		ImageView howToPlay2 = new ImageView(new Image(ClassLoader.getSystemResource("HowToPlay2.png").toString()));
+		ImageView howToPlay3 = new ImageView(new Image(ClassLoader.getSystemResource("HowToPlay3.png").toString()));
+		ImageView howToPlay4 = new ImageView(new Image(ClassLoader.getSystemResource("HowToPlay4.png").toString()));
+		ImageView howToPlay5 = new ImageView(new Image(ClassLoader.getSystemResource("HowToPlay5.png").toString()));
+		howToPlay1.setX(171);
+		howToPlay1.setY(17);
+		howToPlay2.setX(171);
+		howToPlay2.setY(17);
+		howToPlay3.setX(171);
+		howToPlay3.setY(17);
+		howToPlay4.setX(171);
+		howToPlay4.setY(17);
+		howToPlay5.setX(171);
+		howToPlay5.setY(17);
+		ImageView nextButton1 = new ImageView(new Image(ClassLoader.getSystemResource("NextButton.png").toString()));
+		ImageView nextButton2 = new ImageView(new Image(ClassLoader.getSystemResource("NextButton.png").toString()));
+		ImageView nextButton3 = new ImageView(new Image(ClassLoader.getSystemResource("NextButton.png").toString()));
+		ImageView nextButton4 = new ImageView(new Image(ClassLoader.getSystemResource("NextButton.png").toString()));
+		ImageView nextButton5 = new ImageView(new Image(ClassLoader.getSystemResource("NextButton.png").toString()));
+		nextButton1.setX(628);
+		nextButton1.setY(545);
+		nextButton2.setX(628);
+		nextButton2.setY(545);
+		nextButton3.setX(641);
+		nextButton3.setY(320);
+		nextButton4.setX(641);
+		nextButton4.setY(320);
+		nextButton5.setX(641);
+		nextButton5.setY(320);
+		nextButton1.setOnMouseClicked(e->{
+			root.getChildren().removeAll(howToPlay1,nextButton1);
+			root.getChildren().addAll(howToPlay2,nextButton2);
+		});
+		nextButton2.setOnMouseClicked(e->{
+			root.getChildren().removeAll(howToPlay2,nextButton2);
+			root.getChildren().addAll(howToPlay3,nextButton3);
+		});
+		nextButton3.setOnMouseClicked(e->{
+			root.getChildren().removeAll(howToPlay3,nextButton3);
+			root.getChildren().addAll(howToPlay4,nextButton4);
+		});
+		nextButton4.setOnMouseClicked(e->{
+			root.getChildren().removeAll(howToPlay4,nextButton4);
+			root.getChildren().addAll(howToPlay5,nextButton5);
+		});
+		nextButton5.setOnMouseClicked(e->{
+			gameScreenStart(stage);
+		});
+		root.getChildren().addAll(bgi,howToPlay1,nextButton1);
+		
+		
+		Scene howToPlayScene = new Scene(root);
+		stage.setScene(howToPlayScene);
+		stage.show();
+	}
 
 	private void menuStart(Stage stage) {
 
@@ -138,7 +212,7 @@ public class Main extends Application {
 		Scene menuScene = new Scene(root, 1000, 700);
 
 		GameButton play = new GameButton("playbutton.png", "playbuttonhighlight.png", root, 362, 420);
-		play.setOnMouseClicked(e -> gameScreenStart(stage));
+		play.setOnMouseClicked(e -> howToPlay(stage));
 
 		GameButton exit = new GameButton("exitButton.png", "exitButtonhighlight.png", root, 362, 540);
 		exit.setOnMouseClicked(e -> stage.close());
