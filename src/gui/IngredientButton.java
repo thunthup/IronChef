@@ -10,7 +10,7 @@ import javafx.stage.PopupWindow;
 
 public class IngredientButton extends ImageView {
 
-	public static int itemLimit = 7;
+	public static int itemLimit = 4;
 	private Tooltip tooltip;
 	public IngredientButton(String IngredientName, Pane root) {
 		super();
@@ -22,7 +22,7 @@ public class IngredientButton extends ImageView {
 			this.setY(211);
 
 			this.setOnMouseClicked(e -> {
-				if (GameControl.ingredientsOnTable.size() <= itemLimit) {
+				if (GameControl.ingredientsOnTable.size() < itemLimit) {
 					GameControl.ingredientsOnTable.add(new Egg(root));
 				}
 			});
@@ -35,7 +35,7 @@ public class IngredientButton extends ImageView {
 			this.setY(211);
 
 			this.setOnMouseClicked(e -> {
-				if (GameControl.ingredientsOnTable.size() <= itemLimit) {
+				if (GameControl.ingredientsOnTable.size() < itemLimit) {
 					GameControl.ingredientsOnTable.add(new Broccoli(root));
 				}
 			});
@@ -47,7 +47,7 @@ public class IngredientButton extends ImageView {
 			this.setY(211);
 
 			this.setOnMouseClicked(e -> {
-				if (GameControl.ingredientsOnTable.size() <= itemLimit) {
+				if (GameControl.ingredientsOnTable.size() < itemLimit) {
 					GameControl.ingredientsOnTable.add(new Fish(root));
 				}
 			});
@@ -59,7 +59,7 @@ public class IngredientButton extends ImageView {
 			this.setY(305);
 
 			this.setOnMouseClicked(e -> {
-				if (GameControl.ingredientsOnTable.size() <= itemLimit) {
+				if (GameControl.ingredientsOnTable.size() < itemLimit) {
 					GameControl.ingredientsOnTable.add(new Bacon(root));
 				}
 			});
@@ -71,7 +71,7 @@ public class IngredientButton extends ImageView {
 			this.setY(305);
 
 			this.setOnMouseClicked(e -> {
-				if (GameControl.ingredientsOnTable.size() <= itemLimit) {
+				if (GameControl.ingredientsOnTable.size() < itemLimit) {
 					GameControl.ingredientsOnTable.add(new Basil(root));
 				}
 			});
@@ -83,7 +83,7 @@ public class IngredientButton extends ImageView {
 			this.setY(305);
 
 			this.setOnMouseClicked(e -> {
-				if (GameControl.ingredientsOnTable.size() <= itemLimit) {
+				if (GameControl.ingredientsOnTable.size() < itemLimit) {
 					GameControl.ingredientsOnTable.add(new Bread(root));
 				}
 			});
@@ -95,7 +95,7 @@ public class IngredientButton extends ImageView {
 			this.setY(399);
 
 			this.setOnMouseClicked(e -> {
-				if (GameControl.ingredientsOnTable.size() <= itemLimit) {
+				if (GameControl.ingredientsOnTable.size() < itemLimit) {
 					GameControl.ingredientsOnTable.add(new Tomato(root));
 				}
 			});
@@ -107,7 +107,7 @@ public class IngredientButton extends ImageView {
 			this.setY(399);
 
 			this.setOnMouseClicked(e -> {
-				if (GameControl.ingredientsOnTable.size() <= itemLimit) {
+				if (GameControl.ingredientsOnTable.size() < itemLimit) {
 					GameControl.ingredientsOnTable.add(new Carrot(root));
 				}
 			});
@@ -119,7 +119,7 @@ public class IngredientButton extends ImageView {
 			this.setY(399);
 
 			this.setOnMouseClicked(e -> {
-				if (GameControl.ingredientsOnTable.size() <= itemLimit) {
+				if (GameControl.ingredientsOnTable.size() < itemLimit) {
 					GameControl.ingredientsOnTable.add(new Cheese(root));
 				}
 			});

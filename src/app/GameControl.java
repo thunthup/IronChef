@@ -5,13 +5,16 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 import data.Ingredient;
 import data.Menu;
 import gui.QuestBar;
 import gui.Utensil;
 import javafx.animation.Animation;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.collections.ObservableList;
 import javafx.scene.layout.Pane;
@@ -25,7 +28,8 @@ import myInterface.Chopable;
 import myInterface.Fryable;
 
 public class GameControl {
-	public static int N = 0;
+	public static boolean gamePlaying;
+	public static Timeline timeline;
 	public static ArrayList<Ingredient> ingredientsOnTable = new ArrayList<Ingredient>();
 	public static ArrayList<Ingredient> ingredientsOnServe = new ArrayList<Ingredient>();
 	public static ArrayList<String> ingredientsOnServeName = new ArrayList<String>();
@@ -34,8 +38,8 @@ public class GameControl {
 	public static ArrayList<Ingredient> ingredientsOnCuttingBoard = new ArrayList<Ingredient>();
 	public static Menu currentMenu = new Menu();
 	public static QuestBar questBar = new QuestBar(currentMenu);
-	
-	public static int score = 2000;
+
+	public static int score;
 	public static double timeLeft = 5D;
 	public static Utensil trash = new Utensil("Trash");
 	public static Utensil pan = new Utensil("Pan");
@@ -47,7 +51,7 @@ public class GameControl {
 	public static MediaPlayer boilSound = new MediaPlayer(
 			new Media(ClassLoader.getSystemResource("sound/Boiling.mp3").toString()));
 	public static MediaPlayer chopSound = new MediaPlayer(
-			new Media(ClassLoader.getSystemResource("sound/Boiling.mp3").toString()));
+			new Media(ClassLoader.getSystemResource("sound/Chopping.wav").toString()));
 	public static AudioClip trashSound = new AudioClip(ClassLoader.getSystemResource("sound/sweep.wav").toString());
 
 	public static void updateIngredients(Pane root) {
@@ -65,14 +69,18 @@ public class GameControl {
 				if (ingredient.getX() > 930) {
 					ingredient.setX(930);
 				}
-				
-				if(!root.getChildren().contains(ingredient)) {
+
+				if (!root.getChildren().contains(ingredient)) {
 					Platform.runLater(new Runnable() {
-						
+
 						@Override
 						public void run() {
 							ingredientsOnTable.remove(ingredient);
-							
+							ingredientsOnCuttingBoard.remove(ingredient);
+							ingredientsOnPan.remove(ingredient);
+							ingredientsOnPot.remove(ingredient);
+							ingredientsOnServe.remove(ingredient);
+
 						}
 					});
 				}
@@ -190,41 +198,24 @@ public class GameControl {
 
 				for (Ingredient ingredientOnServe : ingredientsOnServe) {
 					ingredientsOnServeName.add(ingredientOnServe.getIngredientName());
+
 				}
-				boolean menuCheck = false;
-				for (String name : currentMenu.getNameList()) {
-					if (!ingredientsOnServeName.contains(name)) {
-						menuCheck = false;
-						break;
-					} else {
-						menuCheck = true;
-						
-					}
-				}
+
+				boolean menuCheck = ingredientsOnServeName.stream().sorted().collect(Collectors.toList())
+						.equals(GameControl.currentMenu.getNameList().stream().sorted().collect(Collectors.toList()));
+
 				if (menuCheck) {
 					root.getChildren().removeAll(ingredientsOnServe);
-					
-					root.getChildren().remove(questBar);
+					root.getChildren().removeIf(x -> x instanceof QuestBar);
 					ingredientsOnServe.clear();
 					GameControl.score += currentMenu.getScore();
 					menuCheck = false;
 					Menu nextMenu = new Menu();
-					
+					ingredientsOnServeName.clear();
 					GameControl.questBar = new QuestBar(nextMenu);
 					GameControl.currentMenu = nextMenu;
-					Platform.runLater(new Runnable() {
-						
-						@Override
-						public void run() {
-							// TODO Auto-generated method stub
-							root.getChildren().add(questBar);
-						}
-					});
-						
-					
-					
-					
-					
+					root.getChildren().add(questBar);
+
 				}
 
 			}

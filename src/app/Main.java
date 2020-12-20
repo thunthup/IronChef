@@ -1,6 +1,7 @@
 package app;
 
 import data.Ingredient;
+import data.Menu;
 import gui.GameButton;
 import gui.IngredientButton;
 import gui.QuestBar;
@@ -23,12 +24,12 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 public class Main extends Application {
-
+	public static double now;
 	final static int HEIGHT = 700;
 	final static int WIDGTH = 1000;
 
 	private void scoreScreen(Stage stage) {
-		
+		GameControl.timeline.pause();
 		GameControl.boilSound.stop();
 		GameControl.chopSound.stop();
 		GameControl.frySound.stop();
@@ -39,27 +40,37 @@ public class Main extends Application {
 		ImageView backgroundImg = new ImageView(new Image(ClassLoader.getSystemResource("menubg.png").toString()));
 		root.getChildren().add(backgroundImg);
 		Scene scoreScene = new Scene(root);
+		Font font = new Font(Font.getFamilies().get(0), 40);
+		Label scoreLabel = new Label("Score: " + GameControl.score);
+		scoreLabel.setFont(font);
+		scoreLabel.setTranslateX(70);
+		scoreLabel.setTranslateY(629);
+		root.getChildren().add(scoreLabel);
+
+		GameButton playAgainButton = new GameButton("playbutton.png", "playbuttonhighlight.png", root, 362, 400);
+		playAgainButton.setOnMouseClicked(e -> gameScreenStart(stage));
+		GameButton backToMenuButon = new GameButton("exitButton.png", "exitButtonhighlight.png", root, 362, 520);
+		backToMenuButon.setOnMouseClicked(e -> {
+			menuStart(stage);
+		});
+
 		stage.setScene(scoreScene);
 		stage.show();
 
 	}
 
 	private void gameScreenStart(Stage stage) {
-
+		GameControl.timeLeft = 120;
+		GameControl.score = 0;
 		Pane root = new Pane();
 		root.setPrefSize(WIDGTH, HEIGHT);
 		root.setMinSize(WIDGTH, HEIGHT);
 
 		Scene gamescene = new Scene(root);
-		ImageView gameScreenBackgroundleft = new ImageView(
+		ImageView gameScreenBackground = new ImageView(
 				new Image(ClassLoader.getSystemResource("gameScreenbgleft.png").toString()));
-		ImageView gameScreenBackgroundright = new ImageView(
-				new Image(ClassLoader.getSystemResource("gameScreenbgright.png").toString()));
-		gameScreenBackgroundleft.setX(0);
-		gameScreenBackgroundleft.setY(0);
-		gameScreenBackgroundright.setX(350);
-		gameScreenBackgroundright.setY(0);
-		root.getChildren().addAll(gameScreenBackgroundleft, gameScreenBackgroundright);
+
+		root.getChildren().addAll(gameScreenBackground);
 		IngredientButton eggButton = new IngredientButton("Egg", root);
 		IngredientButton FishButton = new IngredientButton("Fish", root);
 		IngredientButton broccoliButton = new IngredientButton("Broccoli", root);
@@ -71,15 +82,17 @@ public class Main extends Application {
 		IngredientButton CheeseButton = new IngredientButton("Cheese", root);
 		root.getChildren().addAll(GameControl.trash, GameControl.pan, GameControl.pot, GameControl.plate,
 				GameControl.cuttingBoard);
+		GameControl.currentMenu = new Menu();
+		GameControl.questBar = new QuestBar(GameControl.currentMenu);
 		root.getChildren().add(GameControl.questBar);
-		GameControl.timeLeft = 5;
+
 		Font font = new Font(Font.getFamilies().get(0), 40);
 		Label scoreLabel = new Label("Score: " + GameControl.score);
 		scoreLabel.setFont(font);
 		scoreLabel.setTranslateX(70);
 		scoreLabel.setTranslateY(629);
 		Label timeLabel = new Label("Time: " + GameControl.timeLeft);
-		
+
 		timeLabel.setFont(font);
 		timeLabel.setTranslateX(60);
 		timeLabel.setTranslateY(20);
@@ -87,22 +100,24 @@ public class Main extends Application {
 		stage.setScene(gamescene);
 		stage.show();
 
-		Timeline timeline = new Timeline(new KeyFrame(Duration.millis(150), e -> {
+		GameControl.timeline = new Timeline(new KeyFrame(Duration.millis(150), e -> {
+
 			GameControl.updateIngredients(root);
 			GameControl.timeLeft -= 0.15D;
 			timeLabel.setText("Time: " + (int) GameControl.timeLeft);
 			if (GameControl.timeLeft <= 0) {
-				for(Ingredient ingredient : GameControl.ingredientsOnTable) {
+				for (Ingredient ingredient : GameControl.ingredientsOnTable) {
 					root.getChildren().remove(ingredient);
 				}
 				GameControl.updateIngredients(root);
 				scoreScreen(stage);
-				
+
 			}
 			scoreLabel.setText("Score: " + GameControl.score);
+		
 		}));
-		timeline.setCycleCount(Animation.INDEFINITE);
-		timeline.play();
+		GameControl.timeline.setCycleCount(Animation.INDEFINITE);
+		GameControl.timeline.play();
 
 	}
 
@@ -115,12 +130,17 @@ public class Main extends Application {
 		Image bg = new Image(ClassLoader.getSystemResource("menubg.png").toString());
 		ImageView bgi = new ImageView(bg);
 		root.getChildren().add(bgi);
+		ImageView logo = new ImageView(new Image(ClassLoader.getSystemResource("GameLogo.png").toString()));
+		logo.setFitWidth(460);
+		logo.setFitHeight(418);
+		logo.setX(WIDGTH / 4 + 20);
+		root.getChildren().add(logo);
 		Scene menuScene = new Scene(root, 1000, 700);
 
-		GameButton play = new GameButton("playbutton.png", "playbuttonhighlight.png", root, 362, 400);
+		GameButton play = new GameButton("playbutton.png", "playbuttonhighlight.png", root, 362, 420);
 		play.setOnMouseClicked(e -> gameScreenStart(stage));
 
-		GameButton exit = new GameButton("exitButton.png", "exitButtonhighlight.png", root, 362, 520);
+		GameButton exit = new GameButton("exitButton.png", "exitButtonhighlight.png", root, 362, 540);
 		exit.setOnMouseClicked(e -> stage.close());
 		MediaPlayer bgm = new MediaPlayer(new Media(ClassLoader.getSystemResource("sound/bgMusic.mp3").toString()));
 		AudioClip bgMusic = new AudioClip(ClassLoader.getSystemResource("sound/bgMusic.mp3").toString());
